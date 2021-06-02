@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LoadingCell" id="CY3-Uj-X87">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CY3-Uj-X87" id="awJ-WY-9NF">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEU-OG-Spe">
+                        <rect key="frame" x="112" y="30" width="96" height="20"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6WP-Fy-B5d">
+                                <rect key="frame" x="76" y="0.0" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TvS-pc-NRc">
+                                <rect key="frame" x="0.0" y="0.0" width="68" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="6WP-Fy-B5d" secondAttribute="bottom" id="AGS-bY-GSs"/>
+                            <constraint firstItem="TvS-pc-NRc" firstAttribute="top" secondItem="hEU-OG-Spe" secondAttribute="top" id="DWp-dE-ZHk"/>
+                            <constraint firstItem="TvS-pc-NRc" firstAttribute="leading" secondItem="hEU-OG-Spe" secondAttribute="leading" id="ETW-wN-XFS"/>
+                            <constraint firstAttribute="trailing" secondItem="6WP-Fy-B5d" secondAttribute="trailing" id="bjI-yz-UUT"/>
+                            <constraint firstItem="6WP-Fy-B5d" firstAttribute="leading" secondItem="TvS-pc-NRc" secondAttribute="trailing" constant="8" symbolic="YES" id="dg8-rC-NX3"/>
+                            <constraint firstItem="6WP-Fy-B5d" firstAttribute="top" secondItem="hEU-OG-Spe" secondAttribute="top" id="gau-VQ-S9i"/>
+                            <constraint firstAttribute="bottom" secondItem="TvS-pc-NRc" secondAttribute="bottom" constant="2" id="xza-5T-zAd"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hEU-OG-Spe" firstAttribute="centerY" secondItem="awJ-WY-9NF" secondAttribute="centerY" id="KZ7-di-8Nl"/>
+                    <constraint firstItem="hEU-OG-Spe" firstAttribute="centerX" secondItem="awJ-WY-9NF" secondAttribute="centerX" id="vAZ-MF-S3G"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="225" y="99"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

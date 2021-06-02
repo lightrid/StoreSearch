@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B7BB81E72665650E00435CA5 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB81E62665650E00435CA5 /* SearchResultCell.swift */; };
 		B7BB81EA26656D6C00435CA5 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BB81E926656D6C00435CA5 /* NothingFoundCell.xib */; };
+		B7C6DD942667FB7900B8547E /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C6DD932667FB7900B8547E /* LoadingCell.xib */; };
 		B7C75782266188DC00B91BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C75781266188DC00B91BD4 /* AppDelegate.swift */; };
 		B7C75784266188DC00B91BD4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C75783266188DC00B91BD4 /* SceneDelegate.swift */; };
 		B7C75786266188DC00B91BD4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C75785266188DC00B91BD4 /* SearchViewController.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		B7BB81E62665650E00435CA5 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		B7BB81E926656D6C00435CA5 /* NothingFoundCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
+		B7C6DD932667FB7900B8547E /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		B7C7577E266188DC00B91BD4 /* StoreSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7C75781266188DC00B91BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7C75783266188DC00B91BD4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				B7F40E9526642EAB008824E7 /* SearchResultCell.xib */,
 				B7BB81E62665650E00435CA5 /* SearchResultCell.swift */,
 				B7BB81E926656D6C00435CA5 /* NothingFoundCell.xib */,
+				B7C6DD932667FB7900B8547E /* LoadingCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			files = (
 				B7C7578E266188DF00B91BD4 /* LaunchScreen.storyboard in Resources */,
 				B7C7578B266188DF00B91BD4 /* Assets.xcassets in Resources */,
+				B7C6DD942667FB7900B8547E /* LoadingCell.xib in Resources */,
 				B7F40E9626642EAB008824E7 /* SearchResultCell.xib in Resources */,
 				B7BB81EA26656D6C00435CA5 /* NothingFoundCell.xib in Resources */,
 				B7C75789266188DC00B91BD4 /* Main.storyboard in Resources */,
