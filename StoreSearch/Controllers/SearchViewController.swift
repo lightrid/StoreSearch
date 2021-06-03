@@ -14,6 +14,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    var dataTask: URLSessionDataTask?
     var searchResults = [SearchResult]()
     var hasSearched = false
     var isLoading = false
@@ -49,16 +50,6 @@ class SearchViewController: UIViewController {
         return url!
     }
     
-    func performStoreRequest(with url: URL) -> Data? {
-        do {
-            return try Data(contentsOf: url)
-        } catch {
-            print("Download Error: \(error.localizedDescription)")
-            showNeworkError()
-            return nil
-        }
-    }
-    
     func parse(data: Data) -> [SearchResult] {
         do {
             let decoder = JSONDecoder()
@@ -70,7 +61,7 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func showNeworkError() {
+    func showNetworkError() {
         let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the iTunes Store. Plese try again.", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -84,6 +75,7 @@ extension SearchViewController: UISearchBarDelegate {
         if !searchBar.text!.isEmpty {
             searchBar.resignFirstResponder() //Hide keyboard afted press "Search"/Enter button
             
+            dataTask?.cancel()
             isLoading = true
             tableView.reloadData()
             hasSearched = true
@@ -91,20 +83,30 @@ extension SearchViewController: UISearchBarDelegate {
             
             let url = iTunesURL(searchText: searchBar.text!)
            
-            DispatchQueue.global().async {
-                //Code that needs to run in background
-                
-                if let data = self.performStoreRequest(with: url) {
-                    self.searchResults = self.parse(data: data)
-                    self.searchResults.sort(by: <) //Sorting by static func in argument
+            dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error as NSError?, error.code == -999 {
+                   return
+                } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200{
+                    if let data = data {
+                        self.searchResults = self.parse(data: data)
+                        self.searchResults.sort(by: <)
+                        DispatchQueue.main.async {
+                            self.isLoading = false
+                            self.tableView.reloadData()
+                        }
+                        return
+                    }
+                } else {
+                    print("Failture! \(response!)")
                 }
-                
                 DispatchQueue.main.async {
-                    //Update the user interface
-                    self.isLoading = false
-                    self.tableView.reloadData()
+                  self.hasSearched = false
+                  self.isLoading = false
+                  self.tableView.reloadData()
+                    self.showNetworkError()
                 }
             }
+            dataTask?.resume()
         }
     }
     
