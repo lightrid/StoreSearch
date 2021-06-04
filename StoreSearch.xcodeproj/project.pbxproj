@@ -15,8 +15,8 @@
 		B7C75786266188DC00B91BD4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C75785266188DC00B91BD4 /* SearchViewController.swift */; };
 		B7C75789266188DC00B91BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7C75787266188DC00B91BD4 /* Main.storyboard */; };
 		B7C7578B266188DF00B91BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7C7578A266188DF00B91BD4 /* Assets.xcassets */; };
-		B7C7578E266188DF00B91BD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7C7578C266188DF00B91BD4 /* LaunchScreen.storyboard */; };
 		B7D9FE692662C4FD00458DFD /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9FE682662C4FD00458DFD /* SearchResult.swift */; };
+		B7EF5361266A97BB00308E72 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5360266A97BB00308E72 /* UIImageView+DownloadImage.swift */; };
 		B7F40E9626642EAB008824E7 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7F40E9526642EAB008824E7 /* SearchResultCell.xib */; };
 /* End PBXBuildFile section */
 
@@ -30,9 +30,9 @@
 		B7C75785266188DC00B91BD4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B7C75788266188DC00B91BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B7C7578A266188DF00B91BD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B7C7578D266188DF00B91BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B7C7578F266188DF00B91BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7D9FE682662C4FD00458DFD /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		B7EF5360266A97BB00308E72 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		B7F40E9526642EAB008824E7 /* SearchResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +89,7 @@
 				B7BB81E62665650E00435CA5 /* SearchResultCell.swift */,
 				B7BB81E926656D6C00435CA5 /* NothingFoundCell.xib */,
 				B7C6DD932667FB7900B8547E /* LoadingCell.xib */,
+				B7EF5360266A97BB00308E72 /* UIImageView+DownloadImage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -108,7 +109,6 @@
 				B7C75783266188DC00B91BD4 /* SceneDelegate.swift */,
 				B7C75787266188DC00B91BD4 /* Main.storyboard */,
 				B7C7578A266188DF00B91BD4 /* Assets.xcassets */,
-				B7C7578C266188DF00B91BD4 /* LaunchScreen.storyboard */,
 				B7C7578F266188DF00B91BD4 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -171,7 +171,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7C7578E266188DF00B91BD4 /* LaunchScreen.storyboard in Resources */,
 				B7C7578B266188DF00B91BD4 /* Assets.xcassets in Resources */,
 				B7C6DD942667FB7900B8547E /* LoadingCell.xib in Resources */,
 				B7F40E9626642EAB008824E7 /* SearchResultCell.xib in Resources */,
@@ -189,6 +188,7 @@
 			files = (
 				B7C75786266188DC00B91BD4 /* SearchViewController.swift in Sources */,
 				B7C75782266188DC00B91BD4 /* AppDelegate.swift in Sources */,
+				B7EF5361266A97BB00308E72 /* UIImageView+DownloadImage.swift in Sources */,
 				B7D9FE692662C4FD00458DFD /* SearchResult.swift in Sources */,
 				B7C75784266188DC00B91BD4 /* SceneDelegate.swift in Sources */,
 				B7BB81E72665650E00435CA5 /* SearchResultCell.swift in Sources */,
@@ -204,14 +204,6 @@
 				B7C75788266188DC00B91BD4 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		B7C7578C266188DF00B91BD4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B7C7578D266188DF00B91BD4 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
