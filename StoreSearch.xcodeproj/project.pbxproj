@@ -17,6 +17,8 @@
 		B7C7578B266188DF00B91BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7C7578A266188DF00B91BD4 /* Assets.xcassets */; };
 		B7D9FE692662C4FD00458DFD /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9FE682662C4FD00458DFD /* SearchResult.swift */; };
 		B7EF5361266A97BB00308E72 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5360266A97BB00308E72 /* UIImageView+DownloadImage.swift */; };
+		B7EF5367266ABD3000308E72 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF5366266ABD3000308E72 /* DetailViewController.swift */; };
+		B7EF536B266AC56700308E72 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EF536A266AC56700308E72 /* DimmingPresentationController.swift */; };
 		B7F40E9626642EAB008824E7 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7F40E9526642EAB008824E7 /* SearchResultCell.xib */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		B7C7578F266188DF00B91BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7D9FE682662C4FD00458DFD /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		B7EF5360266A97BB00308E72 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
+		B7EF5366266ABD3000308E72 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		B7EF536A266AC56700308E72 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		B7F40E9526642EAB008824E7 /* SearchResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,10 +89,8 @@
 		B7D9FE652662C48500458DFD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B7F40E9526642EAB008824E7 /* SearchResultCell.xib */,
+				B7EF5365266ABAB400308E72 /* Nib views */,
 				B7BB81E62665650E00435CA5 /* SearchResultCell.swift */,
-				B7BB81E926656D6C00435CA5 /* NothingFoundCell.xib */,
-				B7C6DD932667FB7900B8547E /* LoadingCell.xib */,
 				B7EF5360266A97BB00308E72 /* UIImageView+DownloadImage.swift */,
 			);
 			path = View;
@@ -98,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				B7C75785266188DC00B91BD4 /* SearchViewController.swift */,
+				B7EF5366266ABD3000308E72 /* DetailViewController.swift */,
+				B7EF536A266AC56700308E72 /* DimmingPresentationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -112,6 +116,16 @@
 				B7C7578F266188DF00B91BD4 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B7EF5365266ABAB400308E72 /* Nib views */ = {
+			isa = PBXGroup;
+			children = (
+				B7F40E9526642EAB008824E7 /* SearchResultCell.xib */,
+				B7BB81E926656D6C00435CA5 /* NothingFoundCell.xib */,
+				B7C6DD932667FB7900B8547E /* LoadingCell.xib */,
+			);
+			path = "Nib views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,9 +203,11 @@
 				B7C75786266188DC00B91BD4 /* SearchViewController.swift in Sources */,
 				B7C75782266188DC00B91BD4 /* AppDelegate.swift in Sources */,
 				B7EF5361266A97BB00308E72 /* UIImageView+DownloadImage.swift in Sources */,
+				B7EF536B266AC56700308E72 /* DimmingPresentationController.swift in Sources */,
 				B7D9FE692662C4FD00458DFD /* SearchResult.swift in Sources */,
 				B7C75784266188DC00B91BD4 /* SceneDelegate.swift in Sources */,
 				B7BB81E72665650E00435CA5 /* SearchResultCell.swift in Sources */,
+				B7EF5367266ABD3000308E72 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
