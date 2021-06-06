@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7373661266B9E5C00CFED10 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7373660266B9E5C00CFED10 /* GradientView.swift */; };
+		B7373664266BA36200CFED10 /* BounceAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7373663266BA36200CFED10 /* BounceAnimationController.swift */; };
+		B7373667266BA86900CFED10 /* SlideOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7373666266BA86900CFED10 /* SlideOutAnimationController.swift */; };
+		B737366A266BBE3100CFED10 /* LandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7373669266BBE3100CFED10 /* LandscapeViewController.swift */; };
+		B737366E266BE4D400CFED10 /* FadeOutAnitmationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B737366D266BE4D300CFED10 /* FadeOutAnitmationController.swift */; };
 		B7BB81E72665650E00435CA5 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB81E62665650E00435CA5 /* SearchResultCell.swift */; };
 		B7BB81EA26656D6C00435CA5 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BB81E926656D6C00435CA5 /* NothingFoundCell.xib */; };
 		B7C6DD942667FB7900B8547E /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7C6DD932667FB7900B8547E /* LoadingCell.xib */; };
@@ -23,6 +28,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B7373660266B9E5C00CFED10 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		B7373663266BA36200CFED10 /* BounceAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceAnimationController.swift; sourceTree = "<group>"; };
+		B7373666266BA86900CFED10 /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
+		B7373669266BBE3100CFED10 /* LandscapeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeViewController.swift; sourceTree = "<group>"; };
+		B737366D266BE4D300CFED10 /* FadeOutAnitmationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeOutAnitmationController.swift; sourceTree = "<group>"; };
 		B7BB81E62665650E00435CA5 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		B7BB81E926656D6C00435CA5 /* NothingFoundCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
 		B7C6DD932667FB7900B8547E /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
@@ -92,6 +102,10 @@
 				B7EF5365266ABAB400308E72 /* Nib views */,
 				B7BB81E62665650E00435CA5 /* SearchResultCell.swift */,
 				B7EF5360266A97BB00308E72 /* UIImageView+DownloadImage.swift */,
+				B7373660266B9E5C00CFED10 /* GradientView.swift */,
+				B7373663266BA36200CFED10 /* BounceAnimationController.swift */,
+				B7373666266BA86900CFED10 /* SlideOutAnimationController.swift */,
+				B737366D266BE4D300CFED10 /* FadeOutAnitmationController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -102,6 +116,7 @@
 				B7C75785266188DC00B91BD4 /* SearchViewController.swift */,
 				B7EF5366266ABD3000308E72 /* DetailViewController.swift */,
 				B7EF536A266AC56700308E72 /* DimmingPresentationController.swift */,
+				B7373669266BBE3100CFED10 /* LandscapeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -204,10 +219,15 @@
 				B7C75782266188DC00B91BD4 /* AppDelegate.swift in Sources */,
 				B7EF5361266A97BB00308E72 /* UIImageView+DownloadImage.swift in Sources */,
 				B7EF536B266AC56700308E72 /* DimmingPresentationController.swift in Sources */,
+				B7373664266BA36200CFED10 /* BounceAnimationController.swift in Sources */,
+				B737366E266BE4D400CFED10 /* FadeOutAnitmationController.swift in Sources */,
 				B7D9FE692662C4FD00458DFD /* SearchResult.swift in Sources */,
 				B7C75784266188DC00B91BD4 /* SceneDelegate.swift in Sources */,
 				B7BB81E72665650E00435CA5 /* SearchResultCell.swift in Sources */,
+				B7373667266BA86900CFED10 /* SlideOutAnimationController.swift in Sources */,
 				B7EF5367266ABD3000308E72 /* DetailViewController.swift in Sources */,
+				B737366A266BBE3100CFED10 /* LandscapeViewController.swift in Sources */,
+				B7373661266B9E5C00CFED10 /* GradientView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

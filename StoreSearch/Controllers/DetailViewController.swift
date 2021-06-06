@@ -9,6 +9,11 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    enum AnimationStyle {
+        case slide
+        case fade
+    }
+    
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var artworkImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -19,6 +24,7 @@ class DetailViewController: UIViewController {
     
     var searchResult: SearchResult!
     var downloadTask: URLSessionDownloadTask?
+    var dismissStyle = AnimationStyle.fade
     
     lazy var gestureRecognizer: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(close))
@@ -27,6 +33,7 @@ class DetailViewController: UIViewController {
     }()
     
     @IBAction func close() {
+        dismissStyle = .slide
         dismiss(animated: true, completion: nil)
     }
     
@@ -53,6 +60,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         view.tintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
         popupView.layer.cornerRadius = 10
+        view.backgroundColor = UIColor.clear
         
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
@@ -106,6 +114,21 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return DimmingPresentationController(presentedViewController: presented, presenting: presenting)
     }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return BounceAnimationController()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        switch dismissStyle {
+        case .fade:
+            return FadeOutAnimationController()
+        case .slide:
+            return SlideOutAnimationController()
+        }
+    }
+    
+    
 }
 
 extension DetailViewController: UIGestureRecognizerDelegate {

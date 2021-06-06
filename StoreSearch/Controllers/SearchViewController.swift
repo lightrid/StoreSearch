@@ -20,6 +20,8 @@ class SearchViewController: UIViewController {
     var hasSearched = false
     var isLoading = false
     
+    var landscapeVC: LandscapeViewController?
+    
     struct TableView {
         struct CellIdentifiers {
             static let searchResultCell = "SearchResultCell"
@@ -43,8 +45,21 @@ class SearchViewController: UIViewController {
         searchBar.becomeFirstResponder()//Show keyboard on launch
     }
     
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        switch newCollection.verticalSizeClass {
+        case .compact:
+            showLandscape(with: coordinator)
+        case .regular, .unspecified:
+            hideLandscape(with: coordinator)
+        @unknown default:
+            break
+        }
+    }
+    
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
-       performSearch()
+        performSearch()
     }
     
     //MARK: - Helpers Methods
@@ -89,6 +104,54 @@ class SearchViewController: UIViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
+    //MARK: - Landscape View Controller
+    func showLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
+        guard landscapeVC == nil else {
+            return
+        }
+        
+        landscapeVC = storyboard?.instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController
+            
+        guard let controller = landscapeVC else {
+            return
+        }
+        controller.searchResults = searchResults
+        
+        controller.view.frame = view.bounds
+        controller.view.alpha = 0
+        
+        view.addSubview(controller.view)
+        addChild(controller)
+        coordinator.animate { (_) in
+            controller.view.alpha = 1
+            self.searchBar.resignFirstResponder()
+            if self.presentedViewController != nil {
+                self.dismiss(animated: true, completion: nil)
+            }
+        } completion: { (_) in
+            controller.didMove(toParent: self)
+        }
+
+    }
+    
+    func hideLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
+        guard let controller = landscapeVC else {
+            return
+        }
+        
+        controller.willMove(toParent: nil)
+        
+        coordinator.animate { (_) in
+            controller.view.alpha = 0
+        } completion: { (_) in
+            controller.view.removeFromSuperview()
+            controller.removeFromParent()
+            self.landscapeVC = nil
+        }
+
+    }
+    
+    
     
     //MARK: - Navigations
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -122,10 +185,10 @@ extension SearchViewController: UISearchBarDelegate {
             searchResults = []
             
             let url = iTunesURL(searchText: searchBar.text!, category: segmentedControl.selectedSegmentIndex)
-           
+            
             dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let error = error as NSError?, error.code == -999 {
-                   return
+                    return
                 } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200{
                     if let data = data {
                         self.searchResults = self.parse(data: data)
@@ -140,9 +203,9 @@ extension SearchViewController: UISearchBarDelegate {
                     print("Failture! \(response!)")
                 }
                 DispatchQueue.main.async {
-                  self.hasSearched = false
-                  self.isLoading = false
-                  self.tableView.reloadData()
+                    self.hasSearched = false
+                    self.isLoading = false
+                    self.tableView.reloadData()
                     self.showNetworkError()
                 }
             }
