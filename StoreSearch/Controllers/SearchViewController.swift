@@ -89,13 +89,13 @@ class SearchViewController: UIViewController {
         
         view.addSubview(controller.view)
         addChild(controller)
-        coordinator.animate { (_) in
+        coordinator.animate { _ in
             controller.view.alpha = 1
             self.searchBar.resignFirstResponder()
             if self.presentedViewController != nil {
                 self.dismiss(animated: true, completion: nil)
             }
-        } completion: { (_) in
+        } completion: { _ in
             controller.didMove(toParent: self)
         }
         
@@ -108,9 +108,12 @@ class SearchViewController: UIViewController {
         
         controller.willMove(toParent: nil)
         
-        coordinator.animate { (_) in
+        coordinator.animate { _ in
             controller.view.alpha = 0
-        } completion: { (_) in
+            if self.presentedViewController != nil {
+                self.dismiss(animated: true, completion: nil)
+            }
+        } completion: { _ in
             controller.view.removeFromSuperview()
             controller.removeFromParent()
             self.landscapeVC = nil
@@ -156,7 +159,6 @@ extension SearchViewController: UISearchBarDelegate {
         tableView.reloadData()
         self.landscapeVC?.searchResultsReceived()
         searchBar.resignFirstResponder() //Hide keyboard afted press "Search"/Enter button
-        
     }
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {
@@ -203,7 +205,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "ShowDetail", sender: indexPath)
-        
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

@@ -58,7 +58,7 @@ class LandscapeViewController: UIViewController {
             case .loading:
                 showSpinner()
             case .noResult:
-                break
+                showNothingFoundLabel()
             case .results(let list):
                 tileButtons(list)
             }
@@ -74,13 +74,20 @@ class LandscapeViewController: UIViewController {
         
     }
     
+    // MARK: - ObjC Methods
+    @objc func buttonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "ShowDetail", sender: sender)
+    }
+    
     //MARK: - Public Methods
     func searchResultsReceived() {
         hideSpinner()
         
         switch search.state {
-        case .notSearchedYet, .loading, .noResult:
+        case .notSearchedYet, .loading:
             break
+        case .noResult:
+            showNothingFoundLabel()
         case .results(let list):
             tileButtons(list)
         }
@@ -97,6 +104,24 @@ class LandscapeViewController: UIViewController {
     
     private func hideSpinner() {
         view.viewWithTag(1000)?.removeFromSuperview()
+    }
+    
+    private func showNothingFoundLabel() {
+        let label = UILabel(frame: CGRect.zero)
+        label.text = "Nothing Found"
+        label.textColor = UIColor.white
+        label.backgroundColor = UIColor.clear
+        
+        label.sizeToFit()
+        var rect = label.frame
+        rect.size.width = ceil(rect.size.width/2) * 2
+        rect.size.height = ceil(rect.size.height/2) * 2
+        
+        label.frame = rect
+        
+        label.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        
+        view.addSubview(label)
     }
     
     private func tileButtons(_ searchResults: [SearchResult]) {
@@ -158,6 +183,8 @@ class LandscapeViewController: UIViewController {
         for (index, result) in searchResults.enumerated() {
             let button = UIButton(type: .custom)
             button.setBackgroundImage(UIImage(named: "LandscapeButton"), for: .normal)
+            button.tag = 2000 + index
+            button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
             button.frame = CGRect(x: x + paddingHorz, y: marginY + CGFloat(row)*itemHeight + paddingVert, width: buttonWidth, height: buttonHeight)
             downloadImage(for: result, andPlaceOn: button)
             scrollView.addSubview(button)
@@ -214,6 +241,21 @@ class LandscapeViewController: UIViewController {
         }
         task.resume()
         downloads.append(task)
+    }
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "ShowDetail" else {
+            return
+        }
+        if case .results(let list) = search.state {
+            guard let detailViewController = segue.destination as? DetailViewController else {
+                return
+            }
+            
+            let searchResult = list[(sender as! UIButton).tag - 2000]
+            detailViewController.searchResult = searchResult
+        }
     }
 }
 

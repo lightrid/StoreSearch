@@ -5,7 +5,7 @@
 //  Created by Mykhailo Kviatkovskyi on 06.06.2021.
 //
 
-import Foundation
+import UIKit
 
 typealias SearchComplete = (Bool) -> Void
 
@@ -40,44 +40,6 @@ class Search {
     private(set) var state: State = .notSearchedYet
     private var dataTask: URLSessionDataTask? = nil
     
-    //    func performSearch(for text: String, category: Int, completion: @escaping SearchComplete) {
-    //        guard !text.isEmpty else {
-    //            return
-    //        }
-    //
-    //        dataTask?.cancel()
-    //        isLoading = true
-    //        hasSearched = true
-    //        searchResults = []
-    //
-    //        let url = iTunesURL(searchText: text, category: category)
-    //
-    //        dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
-    //            var success = false
-    //
-    //            if let error = error as NSError?, error.code == -999 {
-    //                return
-    //            }
-    //            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-    //                print("Failture! \(response!)")
-    //                self.hasSearched = false
-    //                self.isLoading = false
-    //                return
-    //            }
-    //            guard let data = data else {
-    //                return
-    //            }
-    //
-    //            self.searchResults = self.parse(data: data)
-    //            self.searchResults.sort(by: <)
-    //
-    //            print("Success!")
-    //            self.isLoading = false
-    //            success = true
-    //        }
-    //        dataTask?.resume()
-    //
-    //    }
     func performSearch(for text: String, category: Category, completion: @escaping SearchComplete) {
         if !text.isEmpty {
             dataTask?.cancel()
