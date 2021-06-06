@@ -52,7 +52,16 @@ class LandscapeViewController: UIViewController {
         pageControl.frame = CGRect(x: safeFrame.origin.x, y: safeFrame.size.height - pageControl.frame.size.height, width: safeFrame.size.width, height: pageControl.frame.size.height)
         if firstTime {
             firstTime = false
-            tileButtons(search.searchResults)
+            switch search.state {
+            case .notSearchedYet:
+                break
+            case .loading:
+                showSpinner()
+            case .noResult:
+                break
+            case .results(let list):
+                tileButtons(list)
+            }
         }
     }
     
@@ -65,7 +74,31 @@ class LandscapeViewController: UIViewController {
         
     }
     
+    //MARK: - Public Methods
+    func searchResultsReceived() {
+        hideSpinner()
+        
+        switch search.state {
+        case .notSearchedYet, .loading, .noResult:
+            break
+        case .results(let list):
+            tileButtons(list)
+        }
+    }
+    
     // MARK:- Private Methods
+    private func showSpinner() {
+        let spiner = UIActivityIndicatorView(style: .large)
+        spiner.center = CGPoint(x: view.bounds.midX + 0.5, y: view.bounds.midY + 0.5)
+        spiner.tag = 1000
+        view.addSubview(spiner)
+        spiner.startAnimating()
+    }
+    
+    private func hideSpinner() {
+        view.viewWithTag(1000)?.removeFromSuperview()
+    }
+    
     private func tileButtons(_ searchResults: [SearchResult]) {
         var columnsPerPage = 6
         var rowsPerPage = 3
@@ -153,6 +186,7 @@ class LandscapeViewController: UIViewController {
         pageControl.currentPage = 0
     }
     
+    //MARK: - Networking
     private func downloadImage(for searchResult: SearchResult, andPlaceOn button: UIButton) {
         guard let url = URL(string: searchResult.imageSmall) else {
             return
