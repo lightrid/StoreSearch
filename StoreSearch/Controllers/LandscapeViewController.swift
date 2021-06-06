@@ -8,15 +8,19 @@
 import UIKit
 
 class LandscapeViewController: UIViewController {
+    //MARK: - Public Properties
+    var searchResults = [SearchResult]()
+    var search: Search!
     
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var pageControl: UIPageControl!
-    
+    //MARK: - Private Properties
     private var firstTime = true
     private var downloads = [URLSessionDownloadTask]()
     
-    var searchResults = [SearchResult]()
+    //MARK: - IBOutlet properties
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
+    //MARK: - View Lifecycle
     deinit {
         print("deinit \(self)")
         for task in downloads {
@@ -48,10 +52,11 @@ class LandscapeViewController: UIViewController {
         pageControl.frame = CGRect(x: safeFrame.origin.x, y: safeFrame.size.height - pageControl.frame.size.height, width: safeFrame.size.width, height: pageControl.frame.size.height)
         if firstTime {
             firstTime = false
-            tileButtons(searchResults)
+            tileButtons(search.searchResults)
         }
     }
-    // MARK: - Actions
+    
+    // MARK: - IBAction Methods
     @IBAction func pageChanged(_ sender: UIPageControl) {
         
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
@@ -99,7 +104,7 @@ class LandscapeViewController: UIViewController {
             marginX = 2
             marginY = 29
         case 750...1000:
-            columnsPerPage = 8
+            columnsPerPage = 9
             rowsPerPage = 4
             itemWidth = 90
             itemHeight = CGFloat(Int(viewWidth/8.5))

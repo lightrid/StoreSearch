@@ -10,18 +10,7 @@ import UIKit
 
 
 class SearchViewController: UIViewController {
-    
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    
-    var dataTask: URLSessionDataTask?
-    var searchResults = [SearchResult]()
-    var hasSearched = false
-    var isLoading = false
-    
-    var landscapeVC: LandscapeViewController?
-    
+    //MARK: - Cell Identifiers
     struct TableView {
         struct CellIdentifiers {
             static let searchResultCell = "SearchResultCell"
@@ -30,6 +19,16 @@ class SearchViewController: UIViewController {
         }
     }
     
+    //MARK: - Properties
+   private let search = Search()
+    var landscapeVC: LandscapeViewController?
+    
+    //MARK: - IBOutlet properties
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
+    //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,45 +57,12 @@ class SearchViewController: UIViewController {
         }
     }
     
+    //MARK: - IBAction Methods
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
         performSearch()
     }
     
     //MARK: - Helpers Methods
-    func iTunesURL(searchText: String, category: Int) -> URL {
-        let kind: String
-        
-        switch category {
-        case 1:
-            kind = "musicTrack"
-        case 2:
-            kind = "software"
-        case 3:
-            kind = "ebook"
-        default:
-            kind = ""
-        }
-        
-        let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! //Encode normal text to valid URL respons
-        
-        let urlString = "https://itunes.apple.com/search?term=\(encodedText)&limit=200&entity=\(kind)"
-        
-        let url = URL(string: urlString)
-        
-        return url!
-    }
-    
-    func parse(data: Data) -> [SearchResult] {
-        do {
-            let decoder = JSONDecoder()
-            let result = try decoder.decode(ResultArray.self, from: data)
-            return result.results
-        } catch {
-            print("JSON Error: \(error)")
-            return []
-        }
-    }
-    
     func showNetworkError() {
         let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the iTunes Store. Plese try again.", preferredStyle: .alert)
         
@@ -104,6 +70,7 @@ class SearchViewController: UIViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
+    
     //MARK: - Landscape View Controller
     func showLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
         guard landscapeVC == nil else {
@@ -115,7 +82,7 @@ class SearchViewController: UIViewController {
         guard let controller = landscapeVC else {
             return
         }
-        controller.searchResults = searchResults
+        controller.search = search
         
         controller.view.frame = view.bounds
         controller.view.alpha = 0
@@ -148,10 +115,7 @@ class SearchViewController: UIViewController {
             controller.removeFromParent()
             self.landscapeVC = nil
         }
-
     }
-    
-    
     
     //MARK: - Navigations
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -165,7 +129,7 @@ class SearchViewController: UIViewController {
             return
         }
         
-        detailViewController.searchResult = searchResults[indexPath.row]
+        detailViewController.searchResult = search.searchResults[indexPath.row]
     }
 }
 
@@ -175,42 +139,15 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func performSearch() {
-        if !searchBar.text!.isEmpty {
-            searchBar.resignFirstResponder() //Hide keyboard afted press "Search"/Enter button
-            
-            dataTask?.cancel()
-            isLoading = true
-            tableView.reloadData()
-            hasSearched = true
-            searchResults = []
-            
-            let url = iTunesURL(searchText: searchBar.text!, category: segmentedControl.selectedSegmentIndex)
-            
-            dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let error = error as NSError?, error.code == -999 {
-                    return
-                } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200{
-                    if let data = data {
-                        self.searchResults = self.parse(data: data)
-                        self.searchResults.sort(by: <)
-                        DispatchQueue.main.async {
-                            self.isLoading = false
-                            self.tableView.reloadData()
-                        }
-                        return
-                    }
-                } else {
-                    print("Failture! \(response!)")
-                }
-                DispatchQueue.main.async {
-                    self.hasSearched = false
-                    self.isLoading = false
-                    self.tableView.reloadData()
-                    self.showNetworkError()
-                }
+        search.performSearch(for: searchBar.text!, category: segmentedControl.selectedSegmentIndex) { (success) in
+            if !success {
+                self.showNetworkError()
             }
-            dataTask?.resume()
+            self.tableView.reloadData()
         }
+        
+        tableView.reloadData()
+        searchBar.resignFirstResponder() //Hide keyboard afted press "Search"/Enter button
     }
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {
@@ -221,28 +158,28 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isLoading ?
-            1 : !hasSearched ?
-            0 : searchResults.count == 0 ?
-            1 : searchResults.count
+        return search.isLoading ?
+            1 : !search.hasSearched ?
+            0 : search.searchResults.count == 0 ?
+            1 : search.searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard !isLoading else {
+        guard !search.isLoading else {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableView.CellIdentifiers.loadingCell, for: indexPath)
             let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
             spinner.startAnimating()
             return cell
         }
         
-        guard searchResults.count != 0 else {
+        guard search.searchResults.count != 0 else {
             return tableView.dequeueReusableCell(withIdentifier: TableView.CellIdentifiers.nothingFoundCell, for: indexPath)
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: TableView.CellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
         
-        let searchResult = searchResults[indexPath.row]
+        let searchResult = search.searchResults[indexPath.row]
         
         cell.configure(for: searchResult)
         return cell
@@ -255,7 +192,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return searchResults.count == 0 || isLoading ? nil : indexPath
+        return search.searchResults.count == 0 || search.isLoading ? nil : indexPath
     }
     
 }
